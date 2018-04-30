@@ -10,6 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import java.sql.*;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -109,6 +113,8 @@ public void addaccount(){
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        searchTxt = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Edit Accounts");
@@ -188,6 +194,14 @@ public void addaccount(){
 
         jLabel6.setText("jLabel6");
 
+        searchTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTxtActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Search");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,11 +233,21 @@ public void addaccount(){
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -247,7 +271,7 @@ public void addaccount(){
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
-                        .addGap(0, 55, Short.MAX_VALUE)))
+                        .addGap(0, 53, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -294,6 +318,10 @@ public void addaccount(){
        addaccount();
        selectionall();
        }
+       else{
+       jLabel4.setText("Unable to Add Account:");
+       jLabel5.setText("Account Number must be exactly 4 digits");
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Accounts1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Accounts1MouseClicked
@@ -313,10 +341,20 @@ public void addaccount(){
     }//GEN-LAST:event_Accounts1MouseClicked
 
     private void accountNoTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accountNoTxtKeyPressed
-      if ((accountNoTxt.getText()).length() > 4){
+      if ((accountNoTxt.getText()).length() > 3){
           jLabel6.setText("Account number must be exactly 4 digits");
       }
     }//GEN-LAST:event_accountNoTxtKeyPressed
+
+    private void searchTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTxtActionPerformed
+        
+            TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) Accounts1.getModel())); 
+            sorter.setRowFilter(RowFilter.regexFilter(searchTxt.getText()));
+
+            Accounts1.setRowSorter(sorter);
+            
+        
+    }//GEN-LAST:event_searchTxtActionPerformed
 
     
     /**
@@ -361,6 +399,7 @@ public void addaccount(){
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -368,6 +407,7 @@ public void addaccount(){
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField searchTxt;
     private javax.swing.JTextField surnameTxt;
     // End of variables declaration//GEN-END:variables
 }
